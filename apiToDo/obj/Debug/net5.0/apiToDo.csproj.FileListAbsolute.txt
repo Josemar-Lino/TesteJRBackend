@@ -26,3 +26,14 @@ C:\Users\willi\Desktop\apiToDo\apiToDo\obj\Debug\net5.0\refint\apiToDo.dll
 C:\Users\willi\Desktop\apiToDo\apiToDo\obj\Debug\net5.0\apiToDo.pdb
 C:\Users\willi\Desktop\apiToDo\apiToDo\obj\Debug\net5.0\apiToDo.genruntimeconfig.cache
 C:\Users\willi\Desktop\apiToDo\apiToDo\obj\Debug\net5.0\ref\apiToDo.dll
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.csproj.AssemblyReference.cache
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.AssemblyInfoInputs.cache
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.AssemblyInfo.cs
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.csproj.CoreCompileInputs.cache
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.MvcApplicationPartsAssemblyInfo.cs
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.MvcApplicationPartsAssemblyInfo.cache
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.sourcelink.json
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.dll
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\refint\apiToDo.dll
+C:\Workspace\TesteJRBackend\apiToDo\obj\Debug\net5.0\apiToDo.pdb
