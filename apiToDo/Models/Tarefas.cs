@@ -56,14 +56,30 @@ namespace apiToDo.Models
         {
             try
             {
+                // Obtém a lista atual de tarefas
                 List<TarefaDTO> lstResponse = lstTarefas();
+
+                // Verifica se a tarefa existe na lista
                 var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
-                TarefaDTO Tarefa2 = lstResponse.Where(x=> x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault();
+                if (Tarefa == null)
+                {
+                    throw new Exception($"Tarefa com ID {ID_TAREFA} não encontrada.");
+                }
+
+                // Busca a tarefa novamente para garantir que ela existe
+                TarefaDTO Tarefa2 = lstResponse.Where(x => x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault();
+                if (Tarefa2 == null)
+                {
+                    throw new Exception($"Erro ao localizar a tarefa {ID_TAREFA} para remoção.");
+                }
+
+                // Remove a tarefa da lista
                 lstResponse.Remove(Tarefa2);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw ex;
+                // Propaga a exceção com uma mensagem mais descritiva
+                throw new Exception($"Erro ao deletar tarefa: {ex.Message}");
             }
         }
     }
