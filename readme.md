@@ -157,3 +157,4 @@ curl -X DELETE https://localhost:5001/api/tarefas/1
 - Todos os endpoints retornam a lista atualizada de tarefas após a operação
 - A API está configurada com CORS para permitir requisições de qualquer origem
 - A documentação Swagger está disponível para facilitar o teste dos endpoints
+
