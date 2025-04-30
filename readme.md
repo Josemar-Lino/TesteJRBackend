@@ -21,7 +21,7 @@
 - Descreva oque esta acontecendo com comentarios em cada linha de codigo do metodo DeletarTarefa da classe Tarefas.
 
 - Faça o tratamento de erro do metodo DeletarTarefa da classe Tarefas. <br/> Parametros:
-- O usuario esta tentando deletar a tarefa de codigo 1458.
+- O usuario esta tentando deletar a tarefa de codigo 1458..
 
 ---
 
