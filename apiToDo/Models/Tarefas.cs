@@ -7,78 +7,102 @@ namespace apiToDo.Models
 {
     public class Tarefas
     {
+        // Lista estática para simular um banco de dados
+        private static List<TarefaDTO> _tarefas = new List<TarefaDTO>
+        {
+            new TarefaDTO { ID_TAREFA = 1, DS_TAREFA = "Fazer Compras" },
+            new TarefaDTO { ID_TAREFA = 2, DS_TAREFA = "Fazer Atividade Faculdade" },
+            new TarefaDTO { ID_TAREFA = 3, DS_TAREFA = "Subir Projeto de Teste no GitHub" }
+        };
+
         public List<TarefaDTO> lstTarefas()
         {
             try
             {
-                List<TarefaDTO> lstTarefas = new List<TarefaDTO>();
-
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 1,
-                    DS_TAREFA = "Fazer Compras"
-                });
-
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 2,
-                    DS_TAREFA = "Fazer Atividad Faculdade"
-                });
-
-                lstTarefas.Add(new TarefaDTO
-                {
-                    ID_TAREFA = 3,
-                    DS_TAREFA = "Subir Projeto de Teste no GitHub"
-                });
-
-                return new List<TarefaDTO>();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-
-        public void InserirTarefa(TarefaDTO Request)
-        {
-            try
-            {
-                List<TarefaDTO> lstResponse = lstTarefas();
-                lstResponse.Add(Request);
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
-        }
-        public void DeletarTarefa(int ID_TAREFA)
-        {
-            try
-            {
-                // Obtém a lista atual de tarefas
-                List<TarefaDTO> lstResponse = lstTarefas();
-
-                // Verifica se a tarefa existe na lista
-                var Tarefa = lstResponse.FirstOrDefault(x => x.ID_TAREFA == ID_TAREFA);
-                if (Tarefa == null)
-                {
-                    throw new Exception($"Tarefa com ID {ID_TAREFA} não encontrada.");
-                }
-
-                // Busca a tarefa novamente para garantir que ela existe
-                TarefaDTO Tarefa2 = lstResponse.Where(x => x.ID_TAREFA == Tarefa.ID_TAREFA).FirstOrDefault();
-                if (Tarefa2 == null)
-                {
-                    throw new Exception($"Erro ao localizar a tarefa {ID_TAREFA} para remoção.");
-                }
-
-                // Remove a tarefa da lista
-                lstResponse.Remove(Tarefa2);
+                return _tarefas;
             }
             catch (Exception ex)
             {
-                // Propaga a exceção com uma mensagem mais descritiva
+                throw new Exception($"Erro ao listar tarefas: {ex.Message}");
+            }
+        }
+
+        public TarefaDTO ObterTarefaPorId(int id)
+        {
+            try
+            {
+                var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == id);
+                if (tarefa == null)
+                {
+                    throw new Exception($"Tarefa com ID {id} não encontrada.");
+                }
+                return tarefa;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao obter tarefa: {ex.Message}");
+            }
+        }
+
+        public void InserirTarefa(TarefaDTO tarefa)
+        {
+            try
+            {
+                if (tarefa == null)
+                {
+                    throw new Exception("Tarefa não pode ser nula.");
+                }
+
+                if (_tarefas.Any(x => x.ID_TAREFA == tarefa.ID_TAREFA))
+                {
+                    throw new Exception($"Já existe uma tarefa com o ID {tarefa.ID_TAREFA}.");
+                }
+
+                _tarefas.Add(tarefa);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao inserir tarefa: {ex.Message}");
+            }
+        }
+
+        public void AtualizarTarefa(TarefaDTO tarefaAtualizada)
+        {
+            try
+            {
+                if (tarefaAtualizada == null)
+                {
+                    throw new Exception("Tarefa não pode ser nula.");
+                }
+
+                var tarefaExistente = _tarefas.FirstOrDefault(x => x.ID_TAREFA == tarefaAtualizada.ID_TAREFA);
+                if (tarefaExistente == null)
+                {
+                    throw new Exception($"Tarefa com ID {tarefaAtualizada.ID_TAREFA} não encontrada.");
+                }
+
+                tarefaExistente.DS_TAREFA = tarefaAtualizada.DS_TAREFA;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Erro ao atualizar tarefa: {ex.Message}");
+            }
+        }
+
+        public void DeletarTarefa(int id)
+        {
+            try
+            {
+                var tarefa = _tarefas.FirstOrDefault(x => x.ID_TAREFA == id);
+                if (tarefa == null)
+                {
+                    throw new Exception($"Tarefa com ID {id} não encontrada.");
+                }
+
+                _tarefas.Remove(tarefa);
+            }
+            catch (Exception ex)
+            {
                 throw new Exception($"Erro ao deletar tarefa: {ex.Message}");
             }
         }

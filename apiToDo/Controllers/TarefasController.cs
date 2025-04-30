@@ -7,7 +7,7 @@ using System;
 namespace apiToDo.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TarefasController : ControllerBase
     {
         private readonly Tarefas _tarefas;
@@ -17,48 +17,96 @@ namespace apiToDo.Controllers
             _tarefas = new Tarefas();
         }
 
+        /// <summary>
+        /// Retorna todas as tarefas
+        /// </summary>
+        [HttpGet]
         [Authorize]
-        [HttpPost("lstTarefas")]
-        public ActionResult lstTarefas()
+        public ActionResult<List<TarefaDTO>> Get()
         {
             try
             {
                 var listaTarefas = _tarefas.lstTarefas();
-                return StatusCode(200, listaTarefas);
+                return Ok(listaTarefas);
             }
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}"});
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-        [HttpPost("InserirTarefas")]
-        public ActionResult InserirTarefas([FromBody] TarefaDTO Request)
+        /// <summary>
+        /// Retorna uma tarefa específica pelo ID
+        /// </summary>
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult<TarefaDTO> GetById(int id)
         {
             try
             {
-                _tarefas.InserirTarefa(Request);
-                var listaTarefas = _tarefas.lstTarefas();
-                return StatusCode(200, listaTarefas);
+                var tarefa = _tarefas.ObterTarefaPorId(id);
+                return Ok(tarefa);
             }
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
+                return BadRequest(new { message = ex.Message });
             }
         }
 
-        [HttpGet("DeletarTarefa")]
-        public ActionResult DeleteTask([FromQuery] int ID_TAREFA)
+        /// <summary>
+        /// Cria uma nova tarefa
+        /// </summary>
+        [HttpPost]
+        [Authorize]
+        public ActionResult<List<TarefaDTO>> Post([FromBody] TarefaDTO tarefa)
         {
             try
             {
-                _tarefas.DeletarTarefa(ID_TAREFA);
+                _tarefas.InserirTarefa(tarefa);
                 var listaTarefas = _tarefas.lstTarefas();
-                return StatusCode(200, listaTarefas);
+                return Ok(listaTarefas);
             }
             catch (Exception ex)
             {
-                return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Atualiza uma tarefa existente
+        /// </summary>
+        [HttpPut]
+        [Authorize]
+        public ActionResult<List<TarefaDTO>> Put([FromBody] TarefaDTO tarefa)
+        {
+            try
+            {
+                _tarefas.AtualizarTarefa(tarefa);
+                var listaTarefas = _tarefas.lstTarefas();
+                return Ok(listaTarefas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Remove uma tarefa
+        /// </summary>
+        [HttpDelete("{id}")]
+        [Authorize]
+        public ActionResult<List<TarefaDTO>> Delete(int id)
+        {
+            try
+            {
+                _tarefas.DeletarTarefa(id);
+                var listaTarefas = _tarefas.lstTarefas();
+                return Ok(listaTarefas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
     }
