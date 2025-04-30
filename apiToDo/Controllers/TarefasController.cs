@@ -10,16 +10,22 @@ namespace apiToDo.Controllers
     [Route("[controller]")]
     public class TarefasController : ControllerBase
     {
+        private readonly Tarefas _tarefas;
+
+        public TarefasController()
+        {
+            _tarefas = new Tarefas();
+        }
+
         [Authorize]
         [HttpPost("lstTarefas")]
         public ActionResult lstTarefas()
         {
             try
             {
-              
-                return StatusCode(200);
+                var listaTarefas = _tarefas.lstTarefas();
+                return StatusCode(200, listaTarefas);
             }
-
             catch (Exception ex)
             {
                 return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}"});
@@ -31,12 +37,10 @@ namespace apiToDo.Controllers
         {
             try
             {
-
-                return StatusCode(200);
-
-
+                _tarefas.InserirTarefa(Request);
+                var listaTarefas = _tarefas.lstTarefas();
+                return StatusCode(200, listaTarefas);
             }
-
             catch (Exception ex)
             {
                 return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
@@ -48,10 +52,10 @@ namespace apiToDo.Controllers
         {
             try
             {
-
-                return StatusCode(200);
+                _tarefas.DeletarTarefa(ID_TAREFA);
+                var listaTarefas = _tarefas.lstTarefas();
+                return StatusCode(200, listaTarefas);
             }
-
             catch (Exception ex)
             {
                 return StatusCode(400, new { msg = $"Ocorreu um erro em sua API {ex.Message}" });
